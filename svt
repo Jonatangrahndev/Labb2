@@ -1,0 +1,52 @@
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class SVTTest2nd {
+
+    private static WebDriver driver;
+
+    @BeforeAll
+    static void setup (){
+      System.setProperty("webDriver.chrome.driver", "path/to/chromedriver");
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--remote.allow-origins=*");
+      driver = new ChromeDriver(options);
+    }
+@Test
+    public void CheckWebsiteUrl(){
+      WebDriver driver = new ChromeDriver();
+      driver.get("https://svtplay.se");
+      String websiteTitle = driver.getTitle();
+      assertEquals(driver.getTitle(),"SVT Play logotyp");
+      driver.quit();
+}
+@Test
+    public void CheckWebsiteHeading(){
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("-remote-allow-origins=*");
+      WebDriver driver = new ChromeDriver(options);
+
+      driver.get("https://www.svtplay.se");
+
+}
+    public void Checkmenu(){
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.svtplay.se");
+        String websiteTitle = driver.getTitle();
+        WebElement startMenu = driver.findElement(By.cssSelector("a[href='/Start']"));
+        WebElement programMenu = driver.findElement(By.cssSelector("a[href='/Program']"));
+        WebElement kanalerMenu = driver.findElement(By.cssSelector("a[href='/Kanaler']"));
+
+        // Verify that the menu texts are Start, Program & Kanaler respectively
+        assert startMenu.getText().equals("Start");
+        assert programMenu.getText().equals("Program");
+        assert kanalerMenu.getText().equals("Kanaler");
+        // web browser close
+        driver.quit();
